@@ -12,24 +12,33 @@ plugins {
 
     // Apply the application plugin to add support for building an application
     id 'application'
+
+    // ANTLR plugin
+    id 'antlr'
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
 }
 
 // Define the main class for the application
 mainClassName = 'App'
 
 dependencies {
-    implementation 'org.antlr:antlr4-runtime:4.7.1'
-    
-    // This dependency is found on compile classpath of this component and consumers.
-    compile 'com.google.guava:guava:23.0'
-
-    // Use JUnit test framework
+    antlr "org.antlr:antlr4:4.7.1"
+    compile "org.antlr:antlr4-runtime:4.7.1"
     testCompile 'junit:junit:4.12'
 }
 
-// In this section you declare where to find the dependencies of your project
-repositories {
-    // Use jcenter for resolving your dependencies.
-    // You can declare any Maven/Ivy/file repository here.
-    jcenter()
+generateGrammarSource {
+    maxHeapSize = "64m"
+    outputDirectory = new File("build/antlr/main/grammar".toString())
+}
+
+compileJava.dependsOn generateGrammarSource
+sourceSets {
+    generated {
+        java.srcDir "build/antlr/main/grammar"
+    }
 }
