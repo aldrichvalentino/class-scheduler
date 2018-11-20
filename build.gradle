@@ -33,12 +33,24 @@ dependencies {
 
 generateGrammarSource {
     maxHeapSize = "64m"
-    outputDirectory = new File("build/antlr/main/grammar".toString())
+    arguments += ['-package', 'scheduler.grammar']
+    outputDirectory = new File("generated-src/com/scheduler/grammar".toString())
+}
+
+task copyInputFile(type: Copy) {
+    from file("input.txt")
+    into file("${buildDir}/classes/java/main/")
 }
 
 compileJava.dependsOn generateGrammarSource
+compileJava.dependsOn copyInputFile
 sourceSets {
-    generated {
-        java.srcDir "build/antlr/main/grammar"
+    main {
+        java.srcDir "generated-src/com/"
     }
+}
+
+clean{
+    delete "generated-src"
+    delete "build"
 }

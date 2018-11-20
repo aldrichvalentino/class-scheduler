@@ -1,7 +1,7 @@
 /*
  * Grammar for class scheduling 
  * */
-grammar classScheduler;
+grammar ClassScheduler;
 
 /*
  * Main statement 
@@ -14,7 +14,7 @@ statement : classrooms ENTER courses ENTER lecturers ENTER teaches;
  * */
 courses : (course ENTER)*;
 course  : COURSE courseName credits classes;
-classes : OPENBRACKET classrooms CLOSEBRACKET;
+classes : OPENBRACKET WORD+ CLOSEBRACKET; // TODO: change the class grammar
 
 /*
  * Classroom Definition
@@ -44,7 +44,8 @@ schedules					: OPENBRACKET (schedule ENTER)+ CLOSEBRACKET;
 constraints				: OPENBRACKET (constraint ENTER)* CLOSEBRACKET;
 teachesLecturer		: OPENBRACKET teach* CLOSEBRACKET;
 schedule					: OPENTUPLE NUMERIC (',' NUMERIC)* CLOSETUPLE;
-constraint          : facilities;
+constraint        : facilities;
+
 /*
  * Parser Rules
  */
@@ -58,16 +59,16 @@ TEACH								: 'teach';
 /*
  * Lexer Rules
  */
-
 LOWERCASE       : [a-z];
 UPPERCASE       : [A-Z];
-DIGIT		    : [0-9];
+DIGIT		        : [0-9];
 WORD            : (LOWERCASE | UPPERCASE | '_')+;
 ALPHANUMERIC    : (LOWERCASE | UPPERCASE | DIGIT | '_')+;
-NUMERIC			: (DIGIT)+;
+NUMERIC			    : [0-9]+;
 WHITESPACE      : (' ' | '\t');
 ENTER           : ('\r'? '\n' | '\r')+;
-OPENBRACKET		: '{'(ENTER | WHITESPACE);
-CLOSEBRACKET	: (ENTER | WHITESPACE)'}';
-OPENTUPLE		: '['(ENTER | WHITESPACE);
-CLOSETUPLE		: (ENTER | WHITESPACE)']';
+OPENBRACKET		  : '{'(ENTER | WHITESPACE);
+CLOSEBRACKET	  : (ENTER | WHITESPACE)'}';
+OPENTUPLE		    : '['(ENTER | WHITESPACE);
+CLOSETUPLE		  : (ENTER | WHITESPACE)']';
+WS              : WHITESPACE+ -> skip;
