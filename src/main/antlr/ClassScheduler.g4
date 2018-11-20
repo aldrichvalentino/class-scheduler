@@ -61,14 +61,14 @@ TEACH								: 'teach';
  */
 LOWERCASE       : [a-z];
 UPPERCASE       : [A-Z];
-DIGIT		        : [0-9];
+NUMERIC			    : DIGIT+;
+fragment DIGIT	: [0-9];
 WORD            : (LOWERCASE | UPPERCASE | '_')+;
 ALPHANUMERIC    : (LOWERCASE | UPPERCASE | DIGIT | '_')+;
-NUMERIC			    : [0-9]+;
+WS              : WHITESPACE+ -> skip;
 WHITESPACE      : (' ' | '\t');
 ENTER           : ('\r'? '\n' | '\r')+;
 OPENBRACKET		  : '{'(ENTER | WHITESPACE);
 CLOSEBRACKET	  : (ENTER | WHITESPACE)'}';
 OPENTUPLE		    : '['(ENTER | WHITESPACE);
 CLOSETUPLE		  : (ENTER | WHITESPACE)']';
-WS              : WHITESPACE+ -> skip;

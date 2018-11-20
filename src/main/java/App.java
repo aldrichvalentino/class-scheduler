@@ -23,7 +23,8 @@ public class App {
         //Passing the tokens to the parser to create the parse trea. 
         ClassSchedulerParser parser = new ClassSchedulerParser(tokens);
 
-        System.out.println(parser.classroom());
+        System.out.println(parser.classrooms());
+        System.out.println(parser.courses());
         System.out.println(new App().getGreeting());
     }
 }
