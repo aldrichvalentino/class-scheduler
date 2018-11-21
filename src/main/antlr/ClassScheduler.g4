@@ -11,20 +11,20 @@ statement : classrooms ENTER courses ENTER lecturers ENTER teaches;
 
 /*
  * Course Definition
+ * course 'course_name' 'credits'
+ * ex: course IF3170 4 
  * */
-courses : (course ENTER)*;
-course  : COURSE courseName credits classes;
-classes : OPENBRACKET WORD+ CLOSEBRACKET; // TODO: change the class grammar
+courses : (course)*;
+course  : COURSE ALPHANUMERIC NUMERIC;
+// classes : OPENBRACKET WORD NUMERIC+ CLOSEBRACKET; 
 
 /*
  * Classroom Definition
+ * classroom 'class_name' 'capacity' 'facilities seperated with space'
+ * ex: classroom 7603 45 laptop projector
  * */
-classrooms : (classroom ENTER)*;
-classroom  : CLASSROOM name capacity facilities;
-name			 : NUMERIC;
-capacity	 : NUMERIC;
-facilities : object (',' object)*;
-object		 : WORD;
+classrooms : (classroom)*;
+classroom  : CLASSROOM NUMERIC NUMERIC WORD+;
 
 /*
  * Teach Deifinition
@@ -37,14 +37,15 @@ day								: WORD;
 
 /*
  * Lecturers Definition
+ * name { day 1,2 } { laptop projector }
  * */
-lecturers 				: (lecture ENTER)*;
-lecture  					: LECTURE lecturerName schedules constraints teachesLecturer;
-schedules					: OPENBRACKET (schedule ENTER)+ CLOSEBRACKET;
-constraints				: OPENBRACKET (constraint ENTER)* CLOSEBRACKET;
+lecturers 				: (lecturer)*;
+lecturer  				: LECTURE WORD schedules constraints;
+schedules					: OPENBRACKET schedule+ CLOSEBRACKET;
+schedule					: WORD NUMERIC+;
+constraints				: OPENBRACKET WORD* CLOSEBRACKET;
 teachesLecturer		: OPENBRACKET teach* CLOSEBRACKET;
-schedule					: OPENTUPLE NUMERIC (',' NUMERIC)* CLOSETUPLE;
-constraint        : facilities;
+constraint        : WORD+;
 
 /*
  * Parser Rules
@@ -53,7 +54,7 @@ courseName					: ALPHANUMERIC;
 credits							: NUMERIC;
 COURSE							: 'course';
 CLASSROOM						: 'classroom';
-LECTURE							: 'lecture';
+LECTURE							: 'lecturer';
 TEACH								: 'teach';
 
 /*
@@ -65,7 +66,7 @@ NUMERIC			    : DIGIT+;
 fragment DIGIT	: [0-9];
 WORD            : (LOWERCASE | UPPERCASE | '_')+;
 ALPHANUMERIC    : (LOWERCASE | UPPERCASE | DIGIT | '_')+;
-WS              : WHITESPACE+ -> skip;
+WS: [ \t\r\n]+ -> skip;
 WHITESPACE      : (' ' | '\t');
 ENTER           : ('\r'? '\n' | '\r')+;
 OPENBRACKET		  : '{'(ENTER | WHITESPACE);
