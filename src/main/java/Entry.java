@@ -21,8 +21,20 @@ public class Entry {
     public String toString() {
         String output = "";
         for(int i=0; i < time.size(); i++) {
-            output += "| " + time.get(i).day + " | " + Integer.toString(time.get(i).time) + " | ";
-            output += Integer.toString(classroom.number) + " " + course.name + " " + teacher.name + "\n";
+            output += "| ";
+            int bound = 9 - time.get(i).day.length();
+            String day = time.get(i).day;
+            output += day.substring(0, 1).toUpperCase() + day.substring(1);
+            for(int j = 0; j < bound; j++) {
+                output += " ";
+            }
+            output += " | ";
+            String hour = "";
+            if (time.get(i).time < 10)
+                hour = "0" + Integer.toString(time.get(i).time) + ".00";
+            else
+                hour = Integer.toString(time.get(i).time) + ".00";
+            output += hour + " | " + Integer.toString(classroom.number) + " " + course.name + " " + teacher.name + "\n";
         }
         return output;
     }
