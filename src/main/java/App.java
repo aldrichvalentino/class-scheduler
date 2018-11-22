@@ -23,10 +23,16 @@ public class App {
         //Passing the tokens to the parser to create the parse trea. 
         ClassSchedulerParser parser = new ClassSchedulerParser(tokens);
 
-        parser.addParseListener(new ClassroomListener());
-        System.out.println(parser.classrooms());
-        System.out.println(parser.courses());
+        // parser.addParseListener(new ClassroomListener());
+        parser.addParseListener(new LecturerListener());
+        parser.addParseListener(new TeachesListener());
+        // LecturerListener lecturers = new LecturerListener();
+        // parser.addParseListener(lecturers);
+        // System.out.println(parser.classrooms());
+        // System.out.println(parser.courses());
+        System.out.println(parser.lecturers());
+        System.out.println(parser.teaches());
         // System.out.println(parser.courses().getText());
-        System.out.println(new App().getGreeting());
+        // System.out.println(new App().getGreeting());
     }
 }
