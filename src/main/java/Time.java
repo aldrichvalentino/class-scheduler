@@ -8,4 +8,8 @@ public class Time {
         this.day = day;
         this.time = time;
     }
+
+    public boolean equals(Time other){
+        return (day.equals(other.day) && time.equals(other.time));
+    }
 }
