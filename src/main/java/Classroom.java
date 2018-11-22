@@ -44,4 +44,8 @@ public class Classroom {
     public void insertTimeTaken(List<Time> timeTaken){
         this.timeTaken.addAll(timeTaken);
     }
+
+    public boolean equals(String number){
+        return (Integer.parseInt(number) == this.number);
+    }
 }

@@ -26,4 +26,8 @@ public class Course {
     public void setRequirement(List<String> requirement){
         this.requirement.addAll(requirement);
     }
+
+    public boolean equals(String name){
+        return (this.name.equals(name));
+    }
 }

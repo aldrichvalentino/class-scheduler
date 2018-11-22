@@ -26,4 +26,8 @@ public class Lecturer {
     public void assign(List<Time> time){
         preference.removeAll(time);
     }
+
+    public boolean equals(String name){
+        return (this.name.equals(name));
+    }
 }
