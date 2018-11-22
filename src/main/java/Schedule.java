@@ -70,7 +70,11 @@ public class Schedule {
 
     public String toString(){
         String output = "";
-
+        for(int i = 0; i < content.size(); i++) {
+            Entry e = content.get(i);
+            output += e.toString();
+        }
+        return output;
     }
 
     private boolean validate(List<?> obj1, List<?> obj2, boolean inverse){

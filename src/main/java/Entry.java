@@ -17,4 +17,13 @@ public class Entry {
         this.time = new ArrayList<Time>();
         this.time.addAll(time);
     }
+
+    public String toString() {
+        String output = "";
+        for(int i=0; i < time.size(); i++) {
+            output += "| " + time.get(i).day + " | " + Integer.toString(time.get(i).time) + " | ";
+            output += Integer.toString(classroom.number) + " " + course.name + " " + teacher.name + "\n";
+        }
+        return output;
+    }
 }
