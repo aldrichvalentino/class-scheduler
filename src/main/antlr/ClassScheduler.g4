@@ -7,7 +7,15 @@ grammar ClassScheduler;
  * Main statement 
  * Using top-down approach
  * */
-statement : classrooms ENTER courses ENTER lecturers ENTER teaches;
+statement : classrooms courses lecturers teaches;
+
+/*
+ * Classroom Definition
+ * classroom 'class_name' 'capacity' ('facilities seperated with space')
+ * ex: classroom 7603 45 (laptop projector)
+ * */
+classrooms : (classroom)*;
+classroom  : CLASSROOM NUMERIC NUMERIC '(' WORD+ ')';
 
 /*
  * Course Definition
@@ -18,27 +26,22 @@ courses : (course)*;
 course  : COURSE ALPHANUMERIC NUMERIC '(' WORD+ ')';
 
 /*
- * Classroom Definition
- * classroom 'class_name' 'capacity' 'facilities seperated with space'
- * ex: classroom 7603 45 laptop projector
- * */
-classrooms : (classroom)*;
-classroom  : CLASSROOM NUMERIC NUMERIC '(' WORD+ ')';
-
-/*
- * Teach Deifinition
- * */
-teaches			 			: (teach)+;
-teach				 			: TEACH WORD NUMERIC ALPHANUMERIC schedules;
-
-/*
  * Lecturers Definition
- * name ( laptop projector ) { day 1 2 } 
+ * Lecturer 'name' { day 1 2 } 
+ * ex: lecturer x { Monday 7 8 }
  * */
 lecturers 				: (lecturer)+;
 lecturer  				: LECTURE WORD schedules;
 schedules					: OPENBRACKET (schedule)+ CLOSEBRACKET;
 schedule					: WORD NUMERIC+;
+
+/*
+ * Teach Deifinition
+ * Teach 'lecturer_name' 'class_number' 'course_name' { day 1 2 }
+ * ex: teach x 7603 if3109 { Monday 7 8 }
+ * */
+teaches			 			: (teach)+;
+teach				 			: TEACH WORD NUMERIC ALPHANUMERIC schedules;
 
 /*
  * Parser Rules
@@ -68,5 +71,3 @@ OPENSET   		  : '('(ENTER | WS);
 CLOSESET     	  : (ENTER | WS)')';
 OPENTUPLE		    : '['(ENTER | WS);
 CLOSETUPLE		  : (ENTER | WS)']';
-
-
