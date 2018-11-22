@@ -1,26 +1,29 @@
 package main.listeners;
 
+import main.java.Lecturer;
+import main.java.Teach;
 import scheduler.grammar.*;
 import java.util.ArrayList;
 import main.java.Entry;
 import main.java.Time;
 
 public class TeachesListener extends ClassSchedulerBaseListener {
-  public ArrayList<Entry> entries;
+  public ArrayList<Teach> teaches;
 
   public TeachesListener() {
     super();
-    this.entries = new ArrayList<Entry>();
+    this.teaches = new ArrayList<Teach>();
   }
 
   @Override
   public void exitTeaches(ClassSchedulerParser.TeachesContext ctx) {
     for (int idx = 0; idx < ctx.teach().size(); idx++) {
       String lecturerName = ctx.teach(idx).WORD().getText();
+      Lecturer lecturer = new Lecturer(lecturerName);
       String className = ctx.teach(idx).NUMERIC(0).getText();
       String courseName = ctx.teach(idx).ALPHANUMERIC().getText();
-      String capacity = ctx.teach(idx).NUMERIC(1).getText();
-      System.out.println(capacity);
+      int capacity = Integer.parseInt(ctx.teach(idx).NUMERIC(1).getText());
+      // System.out.println(capacity);
       ArrayList<Time> preference = new ArrayList<Time>();
       for (int jdx = 0; jdx < ctx.teach(idx).schedules().schedule().size(); jdx++) {
         String day = ctx.teach(idx).schedules().schedule(jdx).WORD().getText();
@@ -29,7 +32,7 @@ public class TeachesListener extends ClassSchedulerBaseListener {
           preference.add(time);
         }
       }
-      this.entries.add(new Entry(lecturerName, className, courseName, preference));
+      this.teaches.add(new Teach(lecturerName, className, courseName, capacity, preference));
     }
   }
 }

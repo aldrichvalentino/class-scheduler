@@ -1,13 +1,35 @@
+import main.java.Classroom;
+import main.java.Course;
+import main.java.Lecturer;
+import main.java.Schedule;
 import scheduler.grammar.*;
 import org.antlr.v4.runtime.*;
 import java.io.InputStream;
 import java.io.IOException;
+import java.util.List;
 
 import main.listeners.*;
 
 public class App {
     public String getGreeting() {
         return "Hello world.";
+    }
+
+    public static Object getItem(String name, List<?> objects, Class type){
+        Class<?> theClass = type;
+        for(int i = 0; i < objects.size();i++){
+            if(objects.get(i) instanceof Classroom){
+                if(((Classroom) objects.get(i)).equals(name))
+                    return objects.get(i);
+            } else if (objects.get(i) instanceof Course){
+                if(((Course) objects.get(i)).equals(name))
+                    return objects.get(i);
+            } else if (objects.get(i) instanceof Lecturer){
+                if(((Lecturer) objects.get(i)).equals(name))
+                    return objects.get(i);
+            }
+        }
+        return null;
     }
 
     public static void main(String[] args) throws IOException {
@@ -28,6 +50,7 @@ public class App {
         CourseListener courseListener = new CourseListener();
         LecturerListener lecturerListener = new LecturerListener();
         TeachesListener teachesListener = new TeachesListener();
+        Schedule schedule = new Schedule(5);
         parser.addParseListener(classroomListener);
         parser.addParseListener(courseListener);
         parser.addParseListener(lecturerListener);
@@ -38,11 +61,38 @@ public class App {
         parser.lecturers();
         parser.teaches();
         
-        System.out.println(classroomListener.classrooms.get(1).facility);
-        System.out.println(courseListener.courses.get(0).requirement);
-        System.out.println(lecturerListener.lecturers.get(0).name);
-        System.out.println(teachesListener.entries.get(0).course);
-        
+        // System.out.println(classroomListener.classrooms.get(1).facility);
+        // System.out.println(courseListener.courses.get(0).requirement);
+        // System.out.println(lecturerListener.lecturers.get(0).name);
+        // System.out.println(teachesListener.teaches.get(0).course);
+
+        for(int i = 0;i < teachesListener.teaches.size();i++){
+            boolean valid = true;
+            Classroom classroom = (Classroom)App.getItem(teachesListener.teaches.get(i).classroom, classroomListener.classrooms, Classroom.class);
+            Course course = (Course)App.getItem(teachesListener.teaches.get(i).course, courseListener.courses, Course.class);
+            Lecturer lecturer = (Lecturer)App.getItem(teachesListener.teaches.get(i).teacher, lecturerListener.lecturers, Lecturer.class);
+
+            if(classroom == null){
+                System.out.println("Classroom " + teachesListener.teaches.get(i).classroom + " not found");
+                valid = false;
+            }
+
+            if(course == null){
+                System.out.println("Course " + teachesListener.teaches.get(i).course + " not found");
+                valid = false;
+            }
+
+            if(lecturer == null){
+                System.out.println("Lecturer " + teachesListener.teaches.get(i).teacher + " not found");
+                valid = false;
+            }
+
+            if(valid)
+                schedule.insertEntry(lecturer, classroom, course, teachesListener.teaches.get(i).time);
+        }
+
+        //
+        System.out.println(schedule.toString());
         System.out.println(new App().getGreeting());
     }
 }

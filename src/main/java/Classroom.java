@@ -9,6 +9,13 @@ public class Classroom {
     public List<String> facility;
     public List<Time> timeTaken;
 
+    public Classroom(int number){
+        this.number = number;
+        this.capacity = 0;
+        this.facility = new ArrayList<>();
+        this.timeTaken = new ArrayList<>();
+    }
+
     public Classroom(int number, int capacity, String[] facility){
         this.number = number;
         this.capacity = capacity;
@@ -16,15 +23,29 @@ public class Classroom {
         for(int i = 0;i < facility.length;i++){
             this.facility.add(facility[i]);
         }
+        this.timeTaken = new ArrayList<>();
     }
 
     public Classroom(int number, int capacity, List<String> facility){
         this.number = number;
         this.capacity = capacity;
         this.facility = facility;
+        this.timeTaken = new ArrayList<>();
+    }
+
+    public void setCapacity(int capacity){
+        this.capacity = capacity;
+    }
+
+    public void setFacility(List<String> facility){
+        this.facility.addAll(facility);
     }
 
     public void insertTimeTaken(List<Time> timeTaken){
-        //Implementation
+        this.timeTaken.addAll(timeTaken);
+    }
+
+    public boolean equals(String number){
+        return (Integer.parseInt(number) == this.number);
     }
 }
