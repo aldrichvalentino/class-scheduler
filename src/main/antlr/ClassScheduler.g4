@@ -29,23 +29,18 @@ classroom  : CLASSROOM NUMERIC NUMERIC WORD+;
 /*
  * Teach Deifinition
  * */
-teaches			 			: (teach ENTER)+;
-teach				 			: TEACH lecturerName courseName teachingSchedules;
-lecturerName 			: WORD;
-teachingSchedules : OPENBRACKET (day schedule ENTER)+ CLOSEBRACKET;
-day								: WORD;
+teaches			 			: (teach)+;
+teach				 			: TEACH WORD NUMERIC ALPHANUMERIC schedules;
 
 /*
  * Lecturers Definition
- * name { day 1,2 } { laptop projector }
+ * name ( laptop projector ) { day 1 2 } 
  * */
-lecturers 				: (lecturer)*;
-lecturer  				: LECTURE WORD schedules constraints;
-schedules					: OPENBRACKET schedule+ CLOSEBRACKET;
+lecturers 				: (lecturer)+;
+lecturer  				: LECTURE WORD constraints schedules;
+constraints				: OPENSET WORD* CLOSESET;
+schedules					: OPENBRACKET (schedule)+ CLOSEBRACKET;
 schedule					: WORD NUMERIC+;
-constraints				: OPENBRACKET WORD* CLOSEBRACKET;
-teachesLecturer		: OPENBRACKET teach* CLOSEBRACKET;
-constraint        : WORD+;
 
 /*
  * Parser Rules
@@ -66,10 +61,14 @@ NUMERIC			    : DIGIT+;
 fragment DIGIT	: [0-9];
 WORD            : (LOWERCASE | UPPERCASE | '_')+;
 ALPHANUMERIC    : (LOWERCASE | UPPERCASE | DIGIT | '_')+;
-WS: [ \t\r\n]+ -> skip;
+WS              : [ \t\r\n]+ -> skip;
 WHITESPACE      : (' ' | '\t');
 ENTER           : ('\r'? '\n' | '\r')+;
-OPENBRACKET		  : '{'(ENTER | WHITESPACE);
-CLOSEBRACKET	  : (ENTER | WHITESPACE)'}';
-OPENTUPLE		    : '['(ENTER | WHITESPACE);
-CLOSETUPLE		  : (ENTER | WHITESPACE)']';
+OPENBRACKET		  : '{'(ENTER | WS);
+CLOSEBRACKET	  : (ENTER | WS)'}';
+OPENSET   		  : '('(ENTER | WS);
+CLOSESET     	  : (ENTER | WS)')';
+OPENTUPLE		    : '['(ENTER | WS);
+CLOSETUPLE		  : (ENTER | WS)']';
+
+
