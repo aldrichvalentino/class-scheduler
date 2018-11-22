@@ -1,12 +1,14 @@
+package main.listeners;
+
 import scheduler.grammar.*;
 import java.util.ArrayList;
 import main.java.Lecturer;
 import main.java.Time;
 
-class LecturerListener extends ClassSchedulerBaseListener {
-  ArrayList<Lecturer> lecturers;
+public class LecturerListener extends ClassSchedulerBaseListener {
+  public ArrayList<Lecturer> lecturers;
 
-  LecturerListener() {
+  public LecturerListener() {
     super();
     this.lecturers = new ArrayList<Lecturer>();
   }

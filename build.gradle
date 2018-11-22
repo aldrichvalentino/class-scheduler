@@ -47,6 +47,7 @@ compileJava.dependsOn copyInputFile
 sourceSets {
     main {
         java.srcDir "generated-src/com/"
+        java.srcDir "src/main/listeners/"
     }
 }
 

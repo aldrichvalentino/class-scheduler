@@ -1,11 +1,13 @@
+package main.listeners;
+
 import scheduler.grammar.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import main.java.Course;
 
-class CourseListener extends ClassSchedulerBaseListener {
-  List<Course> courses;
+public class CourseListener extends ClassSchedulerBaseListener {
+  public List<Course> courses;
 
   public CourseListener() {
     courses = new ArrayList<>();
