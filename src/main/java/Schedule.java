@@ -25,12 +25,12 @@ public class Schedule {
             System.out.println("Lecturer " + teacher.name + " time preferences not match with teach time");
         }
 
-        localValid = validate(course.requirement, classroom.facility, false);
+        localValid = validate(classroom.facility, course.requirement, false);
         valid = localValid && valid;
         if(!localValid){
             System.out.println("Course " + course.name + " requirement not match with classroom "+ classroom.number + " constraint");
         }
-        
+
         localValid = checkCapacity(classroom.capacity, capacity);
         valid = localValid && valid;
         if(!localValid){
