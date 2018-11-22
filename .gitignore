@@ -3,7 +3,7 @@
 /generated-src/
 
 # Ignore text input file
-input.txt
+# input.txt
 
 # Ignore Gradle GUI config
 gradle-app.setting
