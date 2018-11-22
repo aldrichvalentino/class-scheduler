@@ -1,5 +1,7 @@
 import scheduler.grammar.*;
 import java.util.ArrayList;
+import main.java.Lecturer;
+import main.java.Time;
 
 class LecturerListener extends ClassSchedulerBaseListener {
   ArrayList<Lecturer> lecturers;
@@ -13,23 +15,15 @@ class LecturerListener extends ClassSchedulerBaseListener {
   public void exitLecturers(ClassSchedulerParser.LecturersContext ctx) {
     for (int idx = 0; idx < ctx.lecturer().size(); idx++) {
       String lecturerName = ctx.lecturer(idx).WORD().getText();
-      ArrayList<String> constraints = new ArrayList<String>();
-      ArrayList<Schedule> schedules = new ArrayList<Schedule>();
-      for (int jdx = 0; jdx < ctx.lecturer(idx).constraints().WORD().size(); jdx++) {
-        constraints.add(ctx.lecturer(idx).constraints().WORD(jdx).getText());
-      }
+      ArrayList<Time> preference = new ArrayList<Time>();
       for (int jdx = 0; jdx < ctx.lecturer(idx).schedules().schedule().size(); jdx++) {
-        String scheduleNames = ctx.lecturer(idx).schedules().schedule(jdx).WORD().getText();
-        ArrayList<Integer> times = new ArrayList<Integer>();
+        String day = ctx.lecturer(idx).schedules().schedule(jdx).WORD().getText();
         for (int kdx = 0; kdx < ctx.lecturer(idx).schedules().schedule(jdx).NUMERIC().size(); kdx++) {
-          times.add(Integer.parseInt(ctx.lecturer(idx).schedules().schedule(jdx).NUMERIC(kdx).getText()));
+          Time time = new Time(day, Integer.parseInt(ctx.lecturer(idx).schedules().schedule(jdx).NUMERIC(kdx).getText()));
+          preference.add(time);
         }
-        schedules.add(new Schedule(scheduleNames, times));
       }
-      this.lecturers.add(new Lecturer(lecturerName, constraints, schedules));
+      this.lecturers.add(new Lecturer(lecturerName, preference));
     }
-    // for (int idx = 0; idx < this.lecturers.size(); idx++) {
-    //   System.out.println(this.lecturers.get(idx).constraints);
-    // }
   }
 }

@@ -37,8 +37,7 @@ teach				 			: TEACH WORD NUMERIC ALPHANUMERIC schedules;
  * name ( laptop projector ) { day 1 2 } 
  * */
 lecturers 				: (lecturer)+;
-lecturer  				: LECTURE WORD constraints schedules;
-constraints				: OPENSET WORD* CLOSESET;
+lecturer  				: LECTURE WORD schedules;
 schedules					: OPENBRACKET (schedule)+ CLOSEBRACKET;
 schedule					: WORD NUMERIC+;
 

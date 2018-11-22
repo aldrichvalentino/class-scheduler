@@ -1,17 +1,20 @@
+package main.java;
+
+import java.util.List;
 import java.util.ArrayList;
 
-class Entry {
-  String lecturerName;
-  String classroomName;
-  String courseName;
-  ArrayList<Schedule> schedules;
+public class Entry {
+    public String teacher;
+    public String classroom;
+    public String course;
+    public List<Time> time;
 
-  Entry(String lecturerName, String classroomName, String courseName, ArrayList<Schedule> schedules) {
-    super();
-    this.lecturerName = lecturerName;
-    this.classroomName = classroomName;
-    this.courseName = courseName;
-    this.schedules = new ArrayList<Schedule>();
-    this.schedules.addAll(schedules);
-  }
+    public Entry(String teacher, String classroom, String course, ArrayList<Time> time) {
+        super();
+        this.teacher = teacher;
+        this.classroom = classroom;
+        this.course = course;
+        this.time = new ArrayList<Time>();
+        this.time.addAll(time);
+    }
 }

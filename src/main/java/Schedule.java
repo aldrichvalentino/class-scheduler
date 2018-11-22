@@ -1,13 +1,15 @@
-import java.util.ArrayList;
+package main.java;
 
-class Schedule {
-  String name;
-  ArrayList<Integer> times;
+import java.util.List;
 
-  Schedule(String name, ArrayList<Integer> times) {
-    super();
-    this.name = name;
-    this.times = new ArrayList<Integer>();
-    this.times.addAll(times);
-  }
+public class Schedule {
+    List<Entry>[] content;
+
+    public Schedule(){
+        content = new List[5];
+    }
+
+    public void insertEntry(int day, Entry entry){
+
+    }
 }
