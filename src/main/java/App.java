@@ -67,11 +67,28 @@ public class App {
         System.out.println(teachesListener.teaches.get(0).course);
 
         for(int i = 0;i < teachesListener.teaches.size();i++){
+            boolean valid = true;
             Classroom classroom = (Classroom)App.getItem(teachesListener.teaches.get(i).classroom, classroomListener.classrooms, Classroom.class);
             Course course = (Course)App.getItem(teachesListener.teaches.get(i).course, courseListener.courses, Course.class);
             Lecturer lecturer = (Lecturer)App.getItem(teachesListener.teaches.get(i).teacher, lecturerListener.lecturers, Lecturer.class);
-            System.out.println(classroom.number);
-            schedule.insertEntry(lecturer, classroom, course, teachesListener.teaches.get(i).time);
+
+            if(classroom == null){
+                System.out.println("Classroom " + teachesListener.teaches.get(i).classroom + " not found");
+                valid = false;
+            }
+
+            if(course == null){
+                System.out.println("Course " + teachesListener.teaches.get(i).course + " not found");
+                valid = false;
+            }
+
+            if(lecturer == null){
+                System.out.println("Lecturer " + teachesListener.teaches.get(i).teacher + " not found");
+                valid = false;
+            }
+
+            if(valid)
+                schedule.insertEntry(lecturer, classroom, course, teachesListener.teaches.get(i).time);
         }
 
         //

@@ -22,25 +22,25 @@ public class Schedule {
         localValid = validate(teacher.preference, teachesTime, false);
         valid = localValid && valid;
         if(!localValid){
-            System.out.println("Lecturer time preferences not match with teach time");
+            System.out.println("Lecturer " + teacher.name + " time preferences not match with teach time");
         }
 
         localValid = validate(course.requirement, classroom.facility, false);
         valid = localValid && valid;
         if(!localValid){
-            System.out.println("Course requirement not match with classroom constraint");
+            System.out.println("Course " + course.name + " requirement not match with classroom "+ classroom.number + " constraint");
         }
 
         localValid = checkCredit(course.credit, teachesTime);
         valid = localValid && valid;
         if(!localValid){
-            System.out.println("Credit not match with teach time");
+            System.out.println("Course " + course.name + " credit not match with teach time");
         }
 
         localValid = validate(classroom.timeTaken, teachesTime, true);
         valid = localValid && valid;
         if(!localValid){
-            System.out.println("Classroom already taken at specified teach time");
+            System.out.println("Classroom " + classroom.number + " already taken at specified teach time for " + course.name + " course");
         }
 
         if(valid){
@@ -73,10 +73,14 @@ public class Schedule {
 
     public String toString(){
         String output = "";
-        for(int i = 0; i < content.size(); i++) {
-            Entry e = content.get(i);
-            output += e.toString();
+        for(int i = 0; i < content.length; i++) {
+            for (int j = 0; j < content[i].size(); j++){
+                Entry e = content[i].get(j);
+                output += e.toString();
+            }
         }
+//        System.out.println(String.format("%5s %5s %13s %5s %13s %5s %13s %5s %13s %5s %13s", "Time", "|", "Monday", "|", "Tuesday", "|", "Wednesday", "|", "Thursday", "|", "Friday"));
+//        System.out.println(String.format("%s", "----------------------------------------------------------------------------------------------------------------"));
         return output;
     }
 
