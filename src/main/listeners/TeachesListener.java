@@ -17,8 +17,10 @@ public class TeachesListener extends ClassSchedulerBaseListener {
   public void exitTeaches(ClassSchedulerParser.TeachesContext ctx) {
     for (int idx = 0; idx < ctx.teach().size(); idx++) {
       String lecturerName = ctx.teach(idx).WORD().getText();
-      String className = ctx.teach(idx).NUMERIC().getText();
+      String className = ctx.teach(idx).NUMERIC(0).getText();
       String courseName = ctx.teach(idx).ALPHANUMERIC().getText();
+      String capacity = ctx.teach(idx).NUMERIC(1).getText();
+      System.out.println(capacity);
       ArrayList<Time> preference = new ArrayList<Time>();
       for (int jdx = 0; jdx < ctx.teach(idx).schedules().schedule().size(); jdx++) {
         String day = ctx.teach(idx).schedules().schedule(jdx).WORD().getText();

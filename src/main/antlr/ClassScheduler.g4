@@ -37,11 +37,11 @@ schedule					: WORD NUMERIC+;
 
 /*
  * Teach Deifinition
- * Teach 'lecturer_name' 'class_number' 'course_name' { day 1 2 }
+ * Teach 'lecturer_name' 'class_number' 'course_name' 'class_capacity' { day 1 2 }
  * ex: teach x 7603 if3109 { Monday 7 8 }
  * */
 teaches			 			: (teach)+;
-teach				 			: TEACH WORD NUMERIC ALPHANUMERIC schedules;
+teach				 			: TEACH WORD NUMERIC ALPHANUMERIC NUMERIC schedules;
 
 /*
  * Parser Rules
