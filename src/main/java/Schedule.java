@@ -73,11 +73,9 @@ public class Schedule {
 
     public String toString(){
         String output = "";
-        for(int i = 0; i < content.length;i++){
-            for(int j = 0; j < content[i].size();j++){
-                output = output + " " + content[i].get(j).teacher.name;
-            }
-            output = output + "\n";
+        for(int i = 0; i < content.size(); i++) {
+            Entry e = content.get(i);
+            output += e.toString();
         }
         return output;
     }
