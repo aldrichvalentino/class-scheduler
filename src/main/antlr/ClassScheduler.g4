@@ -11,12 +11,11 @@ statement : classrooms ENTER courses ENTER lecturers ENTER teaches;
 
 /*
  * Course Definition
- * course 'course_name' 'credits'
+ * course 'course_name' 'credits' 'facilities seperated by space'
  * ex: course IF3170 4 
  * */
 courses : (course)*;
-course  : COURSE ALPHANUMERIC NUMERIC;
-// classes : OPENBRACKET WORD NUMERIC+ CLOSEBRACKET; 
+course  : COURSE ALPHANUMERIC NUMERIC '(' WORD+ ')';
 
 /*
  * Classroom Definition
@@ -24,7 +23,7 @@ course  : COURSE ALPHANUMERIC NUMERIC;
  * ex: classroom 7603 45 laptop projector
  * */
 classrooms : (classroom)*;
-classroom  : CLASSROOM NUMERIC NUMERIC WORD+;
+classroom  : CLASSROOM NUMERIC NUMERIC '(' WORD+ ')';
 
 /*
  * Teach Deifinition

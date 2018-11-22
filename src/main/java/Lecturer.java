@@ -6,23 +6,17 @@ import java.util.List;
 public class Lecturer {
     public String name;
     public List<Time> preference;
-    public List<String> constraint;
-
-    public Lecturer(String name, int day, int[] time, String[] constraint){
+    
+    public Lecturer(String name, int day, int[] time){
         this.name = name;
         this.preference = new ArrayList<>();
-        this.constraint = new ArrayList<>();
         for(int i = 0; i < time.length;i++){
             this.preference.add(new Time(day, time[i]));
         }
-        for(int i = 0; i < constraint.length;i++){
-            this.constraint.add(constraint[i]);
-        }
     }
 
-    public Lecturer(String name, int day, List<Integer> time, List<String> constraint){
+    public Lecturer(String name, int day, List<Integer> time){
         this.name = name;
-        this.constraint = constraint;
         this.preference = new ArrayList<>();
         for(int i = 0; i < time.size();i++){
             this.preference.add(new Time(day, time.get(i)));

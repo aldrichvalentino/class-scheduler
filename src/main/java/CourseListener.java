@@ -14,8 +14,14 @@ class CourseListener extends ClassSchedulerBaseListener {
   @Override 
   public void exitCourses(ClassSchedulerParser.CoursesContext ctx) { 
     for (int j = 0; j < ctx.course().size(); j++) {
-      Course course = new Course(ctx.course(j).ALPHANUMERIC().getText(), 
-                                Integer.parseInt(ctx.course(j).NUMERIC().getText()));
+      String name = ctx.course(j).ALPHANUMERIC().getText();
+      int credits = Integer.parseInt(ctx.course(j).NUMERIC().getText());
+      List<String> facilities = new ArrayList<>();
+      for (int i = 0; i < ctx.course(j).WORD().size(); i++) {
+        facilities.add(ctx.course(j).WORD(i).getText());
+      }
+      
+      Course course = new Course(name, credits, facilities);
       list.add(course);
     }
   }

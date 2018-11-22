@@ -30,8 +30,8 @@ public class App {
         parser.classrooms();
         parser.courses();
         
-        System.out.println(classroomListener.list.get(0).number);
-        System.out.println(courseListener.list.get(0).name);
+        System.out.println(classroomListener.list.get(1).facility);
+        System.out.println(courseListener.list.get(0).requirement);
         
         System.out.println(new App().getGreeting());
     }
