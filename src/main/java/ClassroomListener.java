@@ -5,10 +5,10 @@ import java.util.List;
 import main.java.Classroom;
 
 class ClassroomListener extends ClassSchedulerBaseListener {
-  List<Classroom> list;
+  List<Classroom> classrooms;
 
   public ClassroomListener() {
-    list = new ArrayList<>();
+    classrooms = new ArrayList<>();
   }
 
   @Override
@@ -21,7 +21,7 @@ class ClassroomListener extends ClassSchedulerBaseListener {
         facilities.add(ctx.classroom(j).WORD(i).getText());
       }
       Classroom classroom = new Classroom(name, capacity, facilities);
-      list.add(classroom);
+      classrooms.add(classroom);
     }
   }
 }

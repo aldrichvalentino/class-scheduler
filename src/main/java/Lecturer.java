@@ -6,21 +6,12 @@ import java.util.List;
 public class Lecturer {
     public String name;
     public List<Time> preference;
-    
-    public Lecturer(String name, int day, int[] time){
-        this.name = name;
-        this.preference = new ArrayList<>();
-        for(int i = 0; i < time.length;i++){
-            this.preference.add(new Time(day, time[i]));
-        }
-    }
 
-    public Lecturer(String name, int day, List<Integer> time){
+    public Lecturer(String name, ArrayList<Time> preference) {
+        super();
         this.name = name;
-        this.preference = new ArrayList<>();
-        for(int i = 0; i < time.size();i++){
-            this.preference.add(new Time(day, time.get(i)));
-        }
+        this.preference = new ArrayList<Time>();
+        this.preference.addAll(preference);
     }
 
     public boolean assign(List<Time> time){

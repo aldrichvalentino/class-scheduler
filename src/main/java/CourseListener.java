@@ -5,10 +5,10 @@ import java.util.List;
 import main.java.Course;
 
 class CourseListener extends ClassSchedulerBaseListener {
-  List<Course> list;
+  List<Course> courses;
 
   public CourseListener() {
-    list = new ArrayList<>();
+    courses = new ArrayList<>();
   }
 
   @Override 
@@ -22,7 +22,7 @@ class CourseListener extends ClassSchedulerBaseListener {
       }
       
       Course course = new Course(name, credits, facilities);
-      list.add(course);
+      courses.add(course);
     }
   }
 }

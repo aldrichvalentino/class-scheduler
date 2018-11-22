@@ -24,14 +24,22 @@ public class App {
         ClassSchedulerParser parser = new ClassSchedulerParser(tokens);
         ClassroomListener classroomListener = new ClassroomListener();
         CourseListener courseListener = new CourseListener();
+        LecturerListener lecturerListener = new LecturerListener();
+        TeachesListener teachesListener = new TeachesListener();
         parser.addParseListener(classroomListener);
         parser.addParseListener(courseListener);
+        parser.addParseListener(lecturerListener);
+        parser.addParseListener(teachesListener);
         
         parser.classrooms();
         parser.courses();
+        parser.lecturers();
+        parser.teaches();
         
-        System.out.println(classroomListener.list.get(1).facility);
-        System.out.println(courseListener.list.get(0).requirement);
+        System.out.println(classroomListener.classrooms.get(1).facility);
+        System.out.println(courseListener.courses.get(0).requirement);
+        System.out.println(lecturerListener.lecturers.get(0).name);
+        System.out.println(teachesListener.entries.get(0).course);
         
         System.out.println(new App().getGreeting());
     }
