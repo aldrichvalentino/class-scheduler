@@ -23,7 +23,6 @@ public class TeachesListener extends ClassSchedulerBaseListener {
       String className = ctx.teach(idx).NUMERIC(0).getText();
       String courseName = ctx.teach(idx).ALPHANUMERIC().getText();
       int capacity = Integer.parseInt(ctx.teach(idx).NUMERIC(1).getText());
-      // System.out.println(capacity);
       ArrayList<Time> preference = new ArrayList<Time>();
       for (int jdx = 0; jdx < ctx.teach(idx).schedules().schedule().size(); jdx++) {
         String day = ctx.teach(idx).schedules().schedule(jdx).WORD().getText();

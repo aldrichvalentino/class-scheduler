@@ -60,11 +60,6 @@ public class App {
         parser.courses();
         parser.lecturers();
         parser.teaches();
-        
-        // System.out.println(classroomListener.classrooms.get(1).facility);
-        // System.out.println(courseListener.courses.get(0).requirement);
-        // System.out.println(lecturerListener.lecturers.get(0).name);
-        // System.out.println(teachesListener.teaches.get(0).course);
 
         for(int i = 0;i < teachesListener.teaches.size();i++){
             boolean valid = true;
@@ -87,11 +82,11 @@ public class App {
                 valid = false;
             }
 
+            int capacity = teachesListener.teaches.get(i).capacity;
             if(valid)
-                schedule.insertEntry(lecturer, classroom, course, teachesListener.teaches.get(i).time);
+                schedule.insertEntry(lecturer, classroom, course, capacity, teachesListener.teaches.get(i).time);
         }
 
-        //
         System.out.println(schedule.toString());
         System.out.println(new App().getGreeting());
     }

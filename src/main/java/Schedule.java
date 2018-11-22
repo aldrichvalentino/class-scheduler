@@ -13,7 +13,7 @@ public class Schedule {
         }
     }
 
-    public void insertEntry(Lecturer teacher, Classroom classroom, Course course, List<Time> teachesTime) {
+    public void insertEntry(Lecturer teacher, Classroom classroom, Course course, int capacity, List<Time> teachesTime) {
         boolean valid = true;
         boolean localValid = true;
 
@@ -29,6 +29,12 @@ public class Schedule {
         valid = localValid && valid;
         if(!localValid){
             System.out.println("Course " + course.name + " requirement not match with classroom "+ classroom.number + " constraint");
+        }
+        
+        localValid = checkCapacity(classroom.capacity, capacity);
+        valid = localValid && valid;
+        if(!localValid){
+            System.out.println("Course " + course.name + " capacity doesn't match with classroom "+ classroom.number + " capacity");
         }
 
         localValid = checkCredit(course.credit, teachesTime);
@@ -111,6 +117,10 @@ public class Schedule {
                 break;
         }
         return valid;
+    }
+
+    private boolean checkCapacity(int roomCapacity, int requirementCapacity) {
+        return requirementCapacity <= roomCapacity;
     }
 
     private boolean checkCredit(int credit, List<Time> time){
